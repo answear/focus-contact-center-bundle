@@ -1,0 +1,40 @@
+{
+    "name": "answear/focus-contact-center-bundle",
+    "description": "API client for Focus Contact Center",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "^8.0",
+        "symfony/phpunit-bridge": "^5.0",
+        "phpro/grumphp": "^0.18.0",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.12.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "Answear\\FocusContactCenterBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Answear\\FocusContactCenterBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "GrumPHP\\Composer\\DevelopmentIntegrator::integrate"
+        ],
+        "post-update-cmd": [
+            "GrumPHP\\Composer\\DevelopmentIntegrator::integrate"
+        ]
+    },
+    "extra": {
+        "grumphp": {
+            "config-default-path": "grumphp.yaml"
+        }
+    }
+}
