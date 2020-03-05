@@ -6,6 +6,16 @@ namespace Answear\FocusContactCenterBundle;
 
 class Client
 {
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    public function __construct(Configuration $configuration)
+    {
+        $this->configuration = $configuration;
+    }
+
     public function fccAddRecords(Request\FCC\AddRecords $request): Response\FCC\AddRecords
     {
         // TODO
