@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Answear\FocusContactCenterBundle;
 
 use Answear\FocusContactCenterBundle\Exception\ApiError;
+use Answear\FocusContactCenterBundle\Exception\MalformedResponse;
+use Answear\FocusContactCenterBundle\Exception\ServiceUnavailable;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+use Webmozart\Assert\Assert;
 
 class Client
 {
@@ -51,19 +55,30 @@ class Client
             'method' => $this->configuration->getHashMethod(),
             'campaigns_id' => $this->configuration->getCampaignsId(),
         ];
-        $response = $this->guzzle->request(
-            'POST',
-            sprintf('%s/%s', $this->configuration->getUrl(), $endpoint),
-            [
-                RequestOptions::JSON => \array_merge($auth, $request->toArray()),
-            ]
-        );
-        $responseText = $response->getBody()->getContents();
+        try {
+            $response = $this->guzzle->request(
+                'POST',
+                sprintf('%s/%s', $this->configuration->getUrl(), $endpoint),
+                [
+                    RequestOptions::JSON => \array_merge($auth, $request->toArray()),
+                ]
+            );
+            $responseText = $response->getBody()->getContents();
+        } catch (GuzzleException $e) {
+            throw new ServiceUnavailable($e->getMessage(), $e->getCode(), $e);
+        }
 
         $decoded = \json_decode($responseText, true);
-        // TODO validate
-        if (false === $decoded['success']) {
-            throw new ApiError($decoded['message'], $request);
+        try {
+            Assert::isArray($decoded);
+            Assert::keyExists($decoded, 'success');
+            if (false === $decoded['success']) {
+                Assert::keyExists($decoded, 'message');
+
+                throw new ApiError($decoded['message'], $request);
+            }
+        } catch (\InvalidArgumentException $e) {
+            throw new MalformedResponse($e->getMessage(), $decoded, $e);
         }
 
         return $decoded;

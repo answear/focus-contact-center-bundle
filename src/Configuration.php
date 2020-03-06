@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Answear\FocusContactCenterBundle;
 
+use Webmozart\Assert\Assert;
+
 class Configuration
 {
+    private static $allowedHashMethods = ['sha1', 'md5'];
+
     /**
      * @var string
      */
@@ -46,8 +50,9 @@ class Configuration
     ) {
         $this->url = $url;
         $this->login = $login;
-        $this->apiKey = $apiKey;
+        $this->apiKey = rtrim($apiKey, '/');
         $this->campaignsId = $campaignsId;
+        Assert::oneOf($hashMethod, self::$allowedHashMethods);
         $this->hashMethod = $hashMethod;
         $this->changeIdGenerator = $changeIdGenerator;
     }

@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Answear\FocusContactCenterBundle\Exception;
 
-class ServiceUnavailableException extends \RuntimeException
+class ServiceUnavailable extends \RuntimeException
 {
 }
