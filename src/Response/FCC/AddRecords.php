@@ -21,6 +21,17 @@ class AddRecords
         $this->recordsId = $recordsId;
     }
 
+    public static function fromArray(array $response): self
+    {
+        // TODO VALIDATE
+        $mappings = [];
+        foreach ($response['records_id'] as $mapping) {
+            $mappings[] = new IdMapping($mapping['fcc_id'], $mapping['external_id']);
+        }
+
+        return new self($mappings);
+    }
+
     public function getRecordsId(): array
     {
         return $this->recordsId;

@@ -16,6 +16,12 @@ class UpdateRecords
         $this->updated = $updated;
     }
 
+    public static function fromArray(array $response): self
+    {
+        // TODO VALIDATE
+        return new self($response['updated']);
+    }
+
     public function getUpdated(): int
     {
         return $this->updated;
