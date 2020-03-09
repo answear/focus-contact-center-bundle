@@ -7,7 +7,7 @@ namespace Answear\FocusContactCenterBundle\ValueObject;
 final class IdMapping
 {
     /**
-     * @var int
+     * @var string
      */
     private $fccId;
 
@@ -16,13 +16,13 @@ final class IdMapping
      */
     private $externalId;
 
-    public function __construct(int $fccId, string $externalId)
+    public function __construct(string $fccId, string $externalId)
     {
         $this->fccId = $fccId;
         $this->externalId = $externalId;
     }
 
-    public function getFccId(): int
+    public function getFccId(): string
     {
         return $this->fccId;
     }

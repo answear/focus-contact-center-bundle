@@ -29,7 +29,7 @@ class Record
     private $emails;
 
     /**
-     * @var AttributeValueCollection
+     * @var AttributeValueCollection|null
      */
     private $skills;
 
@@ -69,7 +69,6 @@ class Record
         $this->values = $values;
         $this->numbers = $numbers;
         $this->emails = $emails;
-        $this->skills = new AttributeValueCollection();
     }
 
     public function setSkills(AttributeValueCollection $skills): void
@@ -134,7 +133,7 @@ class Record
         return $this->emails;
     }
 
-    public function getSkills(): AttributeValueCollection
+    public function getSkills(): ?AttributeValueCollection
     {
         return $this->skills;
     }
@@ -167,40 +166,5 @@ class Record
     public function getSegment(): ?string
     {
         return $this->segment;
-    }
-
-    public function toArray(): array
-    {
-        $data = [
-            'external_id' => $this->externalId,
-            'numbers' => $this->numbers,
-            'emails' => $this->emails,
-        ];
-        if (\count($this->values)) {
-            $data['values'] = $this->values->toArray();
-        }
-        if (\count($this->skills)) {
-            $data['skills'] = $this->skills->toArray();
-        }
-        if (null !== $this->priority) {
-            $data['priority'] = $this->priority;
-        }
-        if (null !== $this->private) {
-            $data['private'] = $this->private;
-        }
-        if (null !== $this->recall) {
-            $data['recall'] = $this->recall->format('Y-m-d H:i');
-        }
-        if (null !== $this->classifiersId) {
-            $data['classifiers_id'] = $this->classifiersId;
-        }
-        if (null !== $this->slaGroupId) {
-            $data['sla_group_id'] = $this->slaGroupId;
-        }
-        if (null !== $this->segment) {
-            $data['segment'] = $this->segment;
-        }
-
-        return $data;
     }
 }

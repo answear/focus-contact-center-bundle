@@ -9,7 +9,7 @@ use Answear\FocusContactCenterBundle\ValueObject\AttributeValueCollection;
 class Record
 {
     /**
-     * @var int|null
+     * @var string|null
      */
     private $recordsId;
 
@@ -68,13 +68,13 @@ class Record
      */
     private $segment;
 
-    private function __construct(?int $recordsId, ?string $externalId)
+    private function __construct(?string $recordsId, ?string $externalId)
     {
         $this->recordsId = $recordsId;
         $this->externalId = $externalId;
     }
 
-    public static function byRecordsId(int $recordsId): self
+    public static function byRecordsId(string $recordsId): self
     {
         return new self($recordsId, null);
     }
@@ -84,14 +84,24 @@ class Record
         return new self(null, $externalId);
     }
 
-    public function getRecordsId(): ?int
+    public function getRecordsId(): ?string
     {
         return $this->recordsId;
+    }
+
+    public function setRecordsId(?string $recordsId): void
+    {
+        $this->recordsId = $recordsId;
     }
 
     public function getExternalId(): ?string
     {
         return $this->externalId;
+    }
+
+    public function setExternalId(?string $externalId): void
+    {
+        $this->externalId = $externalId;
     }
 
     public function getValues(): ?AttributeValueCollection
@@ -184,47 +194,5 @@ class Record
     public function setSegment(?string $segment): void
     {
         $this->segment = $segment;
-    }
-
-    public function toArray(): array
-    {
-        $data = [];
-        if ($this->recordsId) {
-            $data['records_id'] = $this->recordsId;
-        } else {
-            $data['external_id'] = $this->externalId;
-        }
-        if (null !== $this->numbers) {
-            $data['numbers'] = $this->numbers;
-        }
-        if (null !== $this->emails) {
-            $data['emails'] = $this->emails;
-        }
-        if (null !== $this->values && \count($this->values)) {
-            $data['values'] = $this->values->toArray();
-        }
-        if (null !== $this->skills && \count($this->skills)) {
-            $data['skills'] = $this->skills->toArray();
-        }
-        if (null !== $this->priority) {
-            $data['priority'] = $this->priority;
-        }
-        if (null !== $this->private) {
-            $data['private'] = $this->private;
-        }
-        if (null !== $this->recall) {
-            $data['recall'] = $this->recall->format('Y-m-d H:i');
-        }
-        if (null !== $this->classifiersId) {
-            $data['classifiers_id'] = $this->classifiersId;
-        }
-        if (null !== $this->slaGroupId) {
-            $data['sla_group_id'] = $this->slaGroupId;
-        }
-        if (null !== $this->segment) {
-            $data['segment'] = $this->segment;
-        }
-
-        return $data;
     }
 }
