@@ -7,6 +7,7 @@ namespace Answear\FocusContactCenterBundle;
 use Answear\FocusContactCenterBundle\Exception\ApiError;
 use Answear\FocusContactCenterBundle\Exception\MalformedResponse;
 use Answear\FocusContactCenterBundle\Exception\ServiceUnavailable;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Webmozart\Assert\Assert;
@@ -24,11 +25,11 @@ class Client
     private $hashGenerator;
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var ClientInterface
      */
     private $guzzle;
 
-    public function __construct(Configuration $configuration, HashGenerator $hashGenerator, \GuzzleHttp\Client $guzzle)
+    public function __construct(Configuration $configuration, HashGenerator $hashGenerator, ClientInterface $guzzle)
     {
         $this->configuration = $configuration;
         $this->hashGenerator = $hashGenerator;

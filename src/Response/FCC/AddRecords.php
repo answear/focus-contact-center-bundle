@@ -20,6 +20,7 @@ class AddRecords
      */
     public function __construct(array $recordsId)
     {
+        Assert::allIsInstanceOf($recordsId, IdMapping::class);
         $this->recordsId = $recordsId;
     }
 
@@ -27,7 +28,7 @@ class AddRecords
     {
         try {
             Assert::keyExists($response, 'records_id');
-            Assert::isArray($response, 'records_id');
+            Assert::isArray($response['records_id']);
             $mappings = [];
             foreach ($response['records_id'] as $mapping) {
                 Assert::keyExists($mapping, 'fcc_id');

@@ -48,9 +48,10 @@ class Configuration
         string $hashMethod,
         ChangeGenerator $changeIdGenerator
     ) {
-        $this->url = $url;
+        $this->url = rtrim($url, '/');
+        Assert::contains($login, '@');
         $this->login = $login;
-        $this->apiKey = rtrim($apiKey, '/');
+        $this->apiKey = $apiKey;
         $this->campaignsId = $campaignsId;
         Assert::oneOf($hashMethod, self::$allowedHashMethods);
         $this->hashMethod = $hashMethod;
