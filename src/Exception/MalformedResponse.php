@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Answear\FocusContactCenterBundle\Exception;
 
-use Throwable;
-
 class MalformedResponse extends \RuntimeException
 {
     /**
@@ -13,7 +11,7 @@ class MalformedResponse extends \RuntimeException
      */
     private $response;
 
-    public function __construct($message, $response, Throwable $previous = null)
+    public function __construct($message, $response, ?\Throwable $previous = null)
     {
         parent::__construct($message, 0, $previous);
 
