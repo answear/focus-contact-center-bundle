@@ -64,6 +64,9 @@ class Client
                     RequestOptions::JSON => \array_merge($auth, $request->toArray()),
                 ]
             );
+            if ($response->getBody()->isSeekable()) {
+                $response->getBody()->rewind();
+            }
             $responseText = $response->getBody()->getContents();
         } catch (GuzzleException $e) {
             throw new ServiceUnavailable($e->getMessage(), $e->getCode(), $e);
