@@ -1,5 +1,10 @@
+includes:
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+
 parameters:
-    autoload_files:
-        - vendor/autoload.php
+    level: 5
+    paths:
+        - %rootDir%/../../../src
     excludes_analyse:
         - src/Tests/*
+
