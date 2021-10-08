@@ -46,6 +46,11 @@ class Client
         return Response\FCC\UpdateRecords::fromArray($this->request('fcc-update-records', $request));
     }
 
+    public function fccUpsertRecords(Request\FCC\UpsertRecords $request): Response\FCC\UpsertRecords
+    {
+        return Response\FCC\UpsertRecords::fromArray($this->request('fcc-upsert-records', $request));
+    }
+
     private function request(string $endpoint, Request\Request $request): array
     {
         $change = $this->configuration->getChangeIdGenerator()->generate();
