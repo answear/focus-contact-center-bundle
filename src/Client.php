@@ -59,8 +59,10 @@ class Client
             'change' => $change,
             'hash' => $this->hashGenerator->hash($change),
             'method' => $this->configuration->getHashMethod(),
-            'campaigns_id' => $this->configuration->getCampaignsId(),
         ];
+        if (null !== $this->configuration->getCampaignsId()) {
+            $auth['campaigns_id'] = $this->configuration->getCampaignsId();
+        }
         try {
             $response = $this->guzzle->request(
                 'POST',
