@@ -6,15 +6,8 @@ namespace Answear\FocusContactCenterBundle\ValueObject;
 
 final class AttributeValue
 {
-    /**
-     * @var string
-     */
-    private $attribute;
-
-    /**
-     * @var string
-     */
-    private $value;
+    private string $attribute;
+    private string $value;
 
     public function __construct(string $attribute, string $value)
     {

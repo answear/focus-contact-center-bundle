@@ -13,7 +13,7 @@ class AddRecords
     /**
      * @var IdMapping[]
      */
-    private $recordsId;
+    private array $recordsId;
 
     /**
      * @param IdMapping[] $recordsId

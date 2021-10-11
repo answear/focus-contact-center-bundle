@@ -8,60 +8,23 @@ use Answear\FocusContactCenterBundle\ValueObject\AttributeValueCollection;
 
 class Record
 {
-    /**
-     * @var string
-     */
-    private $externalId;
-
-    /**
-     * @var AttributeValueCollection
-     */
-    private $values;
-
+    private string $externalId;
+    private AttributeValueCollection $values;
     /**
      * @var string[]
      */
-    private $numbers;
-
+    private array $numbers;
     /**
      * @var string[]
      */
-    private $emails;
-
-    /**
-     * @var AttributeValueCollection
-     */
-    private $skills;
-
-    /**
-     * @var string|null
-     */
-    private $priority;
-
-    /**
-     * @var string|null
-     */
-    private $private;
-
-    /**
-     * @var \DateTimeInterface|null
-     */
-    private $recall;
-
-    /**
-     * @var string|null
-     */
-    private $classifiersId;
-
-    /**
-     * @var string|null
-     */
-    private $slaGroupId;
-
-    /**
-     * @var string|null
-     */
-    private $segment;
+    private array $emails;
+    private AttributeValueCollection $skills;
+    private ?string $priority = null;
+    private ?string $private = null;
+    private ?\DateTimeInterface $recall = null;
+    private ?string $classifiersId = null;
+    private ?string $slaGroupId = null;
+    private ?string $segment = null;
 
     public function __construct(string $externalId, AttributeValueCollection $values, array $numbers, array $emails)
     {

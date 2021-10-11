@@ -9,14 +9,8 @@ use Webmozart\Assert\Assert;
 
 class UpsertRecords
 {
-    /**
-     * @var bool
-     */
-    private $success;
-    /**
-     * @var UpsertRecords\Result[]
-     */
-    private $records;
+    private bool $success;
+    private array $records;
 
     public function __construct(bool $success, array $records)
     {

@@ -9,7 +9,7 @@ class AttributeValueCollection implements \IteratorAggregate, \Countable
     /**
      * @var AttributeValue[]
      */
-    private $attributes;
+    private array $attributes;
 
     public function __construct(AttributeValue ...$attributes)
     {

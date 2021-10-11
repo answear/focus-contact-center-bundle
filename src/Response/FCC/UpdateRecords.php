@@ -9,10 +9,7 @@ use Webmozart\Assert\Assert;
 
 class UpdateRecords
 {
-    /**
-     * @var int
-     */
-    private $updated;
+    private int $updated;
 
     public function __construct(int $updated)
     {

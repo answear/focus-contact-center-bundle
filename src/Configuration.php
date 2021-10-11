@@ -8,37 +8,13 @@ use Webmozart\Assert\Assert;
 
 class Configuration
 {
-    private static $allowedHashMethods = ['sha1', 'md5'];
-
-    /**
-     * @var string
-     */
-    private $url;
-
-    /**
-     * @var string
-     */
-    private $login;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @var int|null
-     */
-    private $campaignsId;
-
-    /**
-     * @var string
-     */
-    private $hashMethod;
-
-    /**
-     * @var ChangeGenerator
-     */
-    private $changeIdGenerator;
+    private static array $allowedHashMethods = ['sha1', 'md5'];
+    private string $url;
+    private string $login;
+    private string $apiKey;
+    private ?int $campaignsId;
+    private string $hashMethod;
+    private ChangeGenerator $changeIdGenerator;
 
     public function __construct(
         string $url,

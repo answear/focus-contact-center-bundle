@@ -12,7 +12,7 @@ class AddRecords implements Request
     /**
      * @var AddRecords\Record[]
      */
-    private $records;
+    private array $records;
 
     /**
      * @param AddRecords\Record[] $records

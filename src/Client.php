@@ -14,20 +14,9 @@ use Webmozart\Assert\Assert;
 
 class Client
 {
-    /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
-     * @var HashGenerator
-     */
-    private $hashGenerator;
-
-    /**
-     * @var ClientInterface
-     */
-    private $guzzle;
+    private Configuration $configuration;
+    private HashGenerator $hashGenerator;
+    private ClientInterface $guzzle;
 
     public function __construct(Configuration $configuration, HashGenerator $hashGenerator, ClientInterface $guzzle)
     {

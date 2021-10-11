@@ -12,7 +12,7 @@ class UpsertRecords implements Request
     /**
      * @var UpsertRecords\Record[]
      */
-    private $records;
+    private array $records;
 
     public function __construct(array $records)
     {

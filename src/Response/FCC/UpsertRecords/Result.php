@@ -6,9 +6,9 @@ namespace Answear\FocusContactCenterBundle\Response\FCC\UpsertRecords;
 
 class Result
 {
-    private $id;
-    private $action;
-    private $externalId;
+    private int $id;
+    private string $action;
+    private string $externalId;
 
     public function __construct(int $id, string $action, string $externalId)
     {
