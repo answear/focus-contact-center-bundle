@@ -26,7 +26,7 @@ class Configuration
     private $apiKey;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $campaignsId;
 
@@ -44,7 +44,7 @@ class Configuration
         string $url,
         string $login,
         string $apiKey,
-        int $campaignsId,
+        ?int $campaignsId,
         string $hashMethod,
         ChangeGenerator $changeIdGenerator
     ) {
@@ -73,7 +73,7 @@ class Configuration
         return $this->apiKey;
     }
 
-    public function getCampaignsId(): int
+    public function getCampaignsId(): ?int
     {
         return $this->campaignsId;
     }

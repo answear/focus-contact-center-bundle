@@ -45,27 +45,13 @@ class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $this->config = new Configuration(
-            'https://example.org',
-            'test@example.org',
-            'apikey',
-            1,
-            'sha1',
-            new class() implements ChangeGenerator {
-                public function generate(): string
-                {
-                    return 'change';
-                }
-            }
-        );
-
-        $this->client = new Client($this->config, new HashGenerator($this->config), $this->setupGuzzle());
+        $this->setupClient(1);
     }
 
     /**
      * @test
      */
-    public function requestIsCorrect(): void
+    public function requestWithCampaignsIdIsCorrect(): void
     {
         $this->guzzleHandler->append(new Response(200, [], \json_encode(['success' => true])));
         $this->request($this->createDummyRequest());
@@ -81,6 +67,32 @@ class ClientTest extends TestCase
                 'hash' => 'e5e49a1767ad90ca997914dbc10f28b6c1e03437',
                 'method' => $this->config->getHashMethod(),
                 'campaigns_id' => $this->config->getCampaignsId(),
+                'foo' => 'bar',
+            ],
+            \json_decode($request->getBody()->getContents(), true)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function requestWithoutCampaignsIdIsCorrect(): void
+    {
+        $this->setupClient(null);
+
+        $this->guzzleHandler->append(new Response(200, [], \json_encode(['success' => true])));
+        $this->request($this->createDummyRequest());
+
+        $this->assertCount(1, $this->guzzleHistory);
+        /** @var \GuzzleHttp\Psr7\Request $request */
+        $request = reset($this->guzzleHistory)['request'];
+
+        $this->assertSame(
+            [
+                'login' => $this->config->getLogin(),
+                'change' => $this->config->getChangeIdGenerator()->generate(),
+                'hash' => 'e5e49a1767ad90ca997914dbc10f28b6c1e03437',
+                'method' => $this->config->getHashMethod(),
                 'foo' => 'bar',
             ],
             \json_decode($request->getBody()->getContents(), true)
@@ -179,5 +191,24 @@ class ClientTest extends TestCase
         $handlerStack->push($history);
 
         return new \GuzzleHttp\Client(['handler' => $handlerStack]);
+    }
+
+    private function setupClient(?int $campaignsId): void
+    {
+        $this->config = new Configuration(
+            'https://example.org',
+            'test@example.org',
+            'apikey',
+            $campaignsId,
+            'sha1',
+            new class() implements ChangeGenerator {
+                public function generate(): string
+                {
+                    return 'change';
+                }
+            }
+        );
+
+        $this->client = new Client($this->config, new HashGenerator($this->config), $this->setupGuzzle());
     }
 }

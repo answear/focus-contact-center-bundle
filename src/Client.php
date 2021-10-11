@@ -46,6 +46,11 @@ class Client
         return Response\FCC\UpdateRecords::fromArray($this->request('fcc-update-records', $request));
     }
 
+    public function fccUpsertRecords(Request\FCC\UpsertRecords $request): Response\FCC\UpsertRecords
+    {
+        return Response\FCC\UpsertRecords::fromArray($this->request('fcc-upsert-records', $request));
+    }
+
     private function request(string $endpoint, Request\Request $request): array
     {
         $change = $this->configuration->getChangeIdGenerator()->generate();
@@ -54,8 +59,10 @@ class Client
             'change' => $change,
             'hash' => $this->hashGenerator->hash($change),
             'method' => $this->configuration->getHashMethod(),
-            'campaigns_id' => $this->configuration->getCampaignsId(),
         ];
+        if (null !== $this->configuration->getCampaignsId()) {
+            $auth['campaigns_id'] = $this->configuration->getCampaignsId();
+        }
         try {
             $response = $this->guzzle->request(
                 'POST',
