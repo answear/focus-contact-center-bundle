@@ -25,21 +25,9 @@ class ClientTest extends TestCase
      * @see http://docs.guzzlephp.org/en/stable/testing.html#history-middleware
      */
     private $guzzleHistory;
-
-    /**
-     * @var MockHandler
-     */
-    private $guzzleHandler;
-
-    /**
-     * @var Configuration
-     */
-    private $config;
-
-    /**
-     * @var Client
-     */
-    private $client;
+    private MockHandler $guzzleHandler;
+    private Configuration $config;
+    private Client $client;
 
     protected function setUp(): void
     {

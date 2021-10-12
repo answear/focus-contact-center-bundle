@@ -8,10 +8,7 @@ use Answear\FocusContactCenterBundle\Request\Request;
 
 class ApiError extends \RuntimeException
 {
-    /**
-     * @var Request
-     */
-    private $request;
+    private Request $request;
 
     public function __construct(string $message, Request $request)
     {

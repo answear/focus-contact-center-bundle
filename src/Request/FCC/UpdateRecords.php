@@ -12,7 +12,7 @@ class UpdateRecords implements Request
     /**
      * @var UpdateRecords\Record[]
      */
-    private $records;
+    private array $records;
 
     public function __construct(array $records)
     {
