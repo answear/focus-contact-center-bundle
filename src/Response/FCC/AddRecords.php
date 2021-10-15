@@ -31,9 +31,11 @@ class AddRecords
             Assert::isArray($response['records_id']);
             $mappings = [];
             foreach ($response['records_id'] as $mapping) {
-                Assert::keyExists($mapping, 'fcc_id');
+                if (!isset($mapping['fcc_id']) && !isset($mapping['id'])) {
+                    throw new \InvalidArgumentException('Expected the key "fcc_id" or "id" to exist.');
+                }
                 Assert::keyExists($mapping, 'external_id');
-                $mappings[] = new IdMapping($mapping['fcc_id'], $mapping['external_id']);
+                $mappings[] = new IdMapping($mapping['fcc_id'] ?? $mapping['id'], $mapping['external_id']);
             }
 
             return new self($mappings);
