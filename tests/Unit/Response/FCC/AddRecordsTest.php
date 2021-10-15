@@ -37,6 +37,29 @@ class AddRecordsTest extends TestCase
     /**
      * @test
      */
+    public function correctResponseForV4(): void
+    {
+        $response = AddRecords::fromArray(
+            [
+                'records_id' => [
+                    ['id' => 1, 'external_id' => 'A'],
+                    ['id' => 2, 'external_id' => 'B'],
+                ],
+            ]
+        );
+
+        $this->assertEquals(
+            [
+                new IdMapping(1, 'A'),
+                new IdMapping(2, 'B'),
+            ],
+            $response->getRecordsId()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function noRecordsId(): void
     {
         $this->expectException(MalformedResponse::class);
@@ -72,5 +95,15 @@ class AddRecordsTest extends TestCase
         $this->expectException(MalformedResponse::class);
 
         AddRecords::fromArray(['records_id' => ['fcc_id' => 1]]);
+    }
+
+    /**
+     * @test
+     */
+    public function noExternalIdForV4(): void
+    {
+        $this->expectException(MalformedResponse::class);
+
+        AddRecords::fromArray(['records_id' => ['id' => 1]]);
     }
 }
