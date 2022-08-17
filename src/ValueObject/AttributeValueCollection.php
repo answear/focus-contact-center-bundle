@@ -16,7 +16,7 @@ class AttributeValueCollection implements \IteratorAggregate, \Countable
         $this->attributes = $attributes;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->attributes);
     }
