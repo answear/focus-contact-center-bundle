@@ -14,6 +14,8 @@ use Webmozart\Assert\Assert;
 
 class Client
 {
+    private const REQUEST_TIMEOUT = 10.0;
+
     private Configuration $configuration;
     private HashGenerator $hashGenerator;
     private ClientInterface $guzzle;
@@ -57,6 +59,7 @@ class Client
                 'POST',
                 sprintf('%s/%s', $this->configuration->getUrl(), $endpoint),
                 [
+                    RequestOptions::TIMEOUT => self::REQUEST_TIMEOUT,
                     RequestOptions::JSON => \array_merge($auth, $request->toArray()),
                 ]
             );
