@@ -148,7 +148,9 @@ class ClientTest extends TestCase
     private function request(Request $request): void
     {
         $rm = new \ReflectionMethod($this->client, 'request');
-        $rm->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $rm->setAccessible(true);
+        }
         $rm->invoke($this->client, 'endpoint', $request);
 
         $this->assertNotEmpty($this->guzzleHistory);
